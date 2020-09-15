@@ -219,7 +219,8 @@ h1 {
 .content {
     width: 100%;
     height: 100%;
-    background: #b8bbc0;
+    background-image: url(../img/back.jpg);
+    transform: scaleX(-1);
 }
 
 
