@@ -1,3 +1,9 @@
+@import "https://fonts.googleapis.com/css?family=Lato:100";
+
+:root{
+    --font-lato:"Lato",Arial,sans-serif;
+}
+
 html {
     font-size: 62.5%;
     width: 100%;
@@ -12,7 +18,7 @@ body {
     font-size: 1.4rem;
 }
 
-a{
+.content-click{
     position: absolute;
     text-decoration: none;
     font-family: "Montserrat", sans-serif;
@@ -219,8 +225,63 @@ h1 {
 .content {
     width: 100%;
     height: 100%;
-    background-image: url(../img/back.jpg);
-    transform: scaleX(-1);
+    background-image: url(../img/back.jpg);    
+}
+
+.notes-header{
+    position: relative;
+    font-family: var(--font-lato);
+    font-size: 4rem;
+    text-align: center;
+    top: 5%;
+    margin-bottom: 5%;
+}
+
+.note-card{
+    position: relative;
+    width: 35%;
+    height: auto;
+    min-height: 20%;    
+    background: #e5e5e5;   
+    left: 50%;
+    transform: translate(-50%);
+    border-radius: 5px;
+    box-shadow: 2px 0px 22px #666666;
+    padding-bottom: 5px;
+    margin-bottom: 12px;
+}
+
+.note-card-header{
+    height: 20px;    
+    padding: 8px 12px;
+    background: #cccccc;
+    color: #ff5311;
+    font-weight: bold;
+}
+
+.note-card-header span{
+    font-family: var(--font-lato);
+    font-size: 2rem;
+    font-style: italic;    
+}
+
+.note-card-header .buttons{
+    float: right;
+    font-size: 2rem;        
+}
+
+.note-card-header .buttons a{
+    cursor: pointer;
+}
+
+.note-card-content{
+    position: relative;
+    width: 95%;
+    height: auto;
+    min-height: 20%;    
+    left: 50%;    
+    transform: translate(-50%);
+    margin-top: 5px;    
 }
 
 
