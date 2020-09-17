@@ -32,19 +32,23 @@
         </div>
     </div>
     <section class="content" id="content-section">
-        <h2 class="notes-header">Notes</h2>
+        <h2 class="notes-header">Notes <i style="font-size: 24px;color:green;position:relative;left: 50px;cursor: pointer;" class="fas fa-plus-square"></i></h2>
+        <!-- Card Start-->
         <div class="note-card">
             <div class="note-card-header">
                 <span id="note-date">Sunday 05 April, 2015 at 3:38PM</span>
-                <div class="buttons">
-                    <a><i class="fas fa-edit" style="color:yellow;"></i></a>
+                <div class="buttons" data-noteId="default">
+                    <a onclick="EditNote(this)"><i class="fas fa-edit" style="color:yellow;"></i></a>
                     <a><i class="fas fa-trash-alt" style="color:red;"></i></a>
                 </div>
             </div>
             <div class="note-card-content">
-                <textarea id="default" rows="1" class="note-textarea" placeholder="Write here ..." disabled>Dinner Time !!!</textarea>
+                <textarea id="default" rows="1" class="note-textarea" placeholder="Write here ..." disabled>
+Dinner Time !!!Dinner Time !!!Dinner Time !!!Dinner Time !!!Dinner Time !!!Dinner Time !!!Dinner Time !!!Dinner Time !!!
+                </textarea>
             </div>
         </div>
+        <!-- Card End-->
     </section>
 </body>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"

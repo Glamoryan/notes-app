@@ -48,8 +48,25 @@ var calculateHeight = function (textarea) {
 };
 
 function ChangeRow() {
-  $("textarea").each(function (index, value) {    
+  $("textarea").each(function (index, value) {
     calculateHeight(this);
+  });
+}
+
+function EditNote(e) {
+  //e.preventDefault();
+  $(e).hide();
+  var parentButtons = e.parentElement;
+  var noteId = $(parentButtons).attr("data-noteId");
+  var noteTextarea = document.querySelector("#" + noteId);
+
+  $(noteTextarea).removeAttr("disabled");
+  $(noteTextarea).focus();
+
+  $(noteTextarea).focusout(function () {
+    $(noteTextarea).attr("disabled", true);
+    $(e).show();
+    //save 
   });
 }
 
