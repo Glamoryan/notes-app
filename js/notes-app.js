@@ -124,8 +124,19 @@ function EditNote(e) {
   $(noteTextarea).focusout(function () {
     $(noteTextarea).attr("disabled", true);
     $(e).show();
-    //save
+    editNotesFromStorage(noteId);
   });
+}
+
+function editNotesFromStorage(noteId){
+  let notes = getNotesFromStorage(); 
+  var newText = document.getElementById(noteId).value;  
+  notes.forEach(function (note){
+    if(note[2] === noteId){
+      note[1] = newText.trim();
+    }
+  });
+  localStorage.setItem("notes",JSON.stringify(notes));
 }
 
 function uniqIdGenerator() {
