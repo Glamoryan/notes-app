@@ -55,6 +55,62 @@ function ChangeRow() {
   });
 }
 
+// ----------------------------> Notes Functions Start
+
+eventListeners();
+
+function eventListeners() {
+  document.addEventListener("DOMContentLoaded", loadAllNotesToUI);
+}
+
+function loadAllNotesToUI() {
+  let notes = getNotesFromStorage();
+  notes.forEach(function (note) {
+    AddNote(note);
+  });
+}
+
+function getNotesFromStorage() {
+  let notes;
+  if (localStorage.getItem("notes") === null) {
+    notes = [];
+  } else {
+    notes = JSON.parse(localStorage.getItem("notes"));
+  }
+  return notes;
+}
+
+function addNotesToStorage(newNote) {
+  let notes = getNotesFromStorage();
+  notes.push(newNote);
+  localStorage.setItem("notes", JSON.stringify(notes));
+}
+
+function SaveNote(e) {
+  var note_id = $(e).parent().attr('data-noteId');
+  var noteInput = document.getElementById(note_id).value;  
+  var noteDate = $(e).parent().prev().text();  
+  const newNote = [noteDate,noteInput.trim(),note_id];
+  if(newNote[1] === ""){
+    alert("Note text not be null");
+  }
+  else{        
+    addNotesToStorage(newNote);
+    $(e).hide();
+  }
+}
+
+function deleteNotesFromStorage(e){
+  let notes = getNotesFromStorage();
+  var noteID = $(e).parent().attr("data-noteId");  
+  notes.forEach(function (note,index){
+    if(note[2] === noteID){
+      notes.splice(index,1);
+    }
+  });
+  localStorage.setItem("notes",JSON.stringify(notes));
+}
+
 function EditNote(e) {
   //e.preventDefault();
   $(e).hide();
@@ -76,21 +132,35 @@ function uniqIdGenerator() {
   return "note-" + Math.round(new Date().getTime() + Math.random() * 100);
 }
 
-function AddNote() {
+function AddNote(note) {
   var noteCardDiv = document.createElement("div");
-  var date = new Date().toLocaleString();
-  var noteId = uniqIdGenerator();
+  var date,textContent,noteId,saveButton;
+  
+  if (note !== null) {
+    date = note[0]; //note date from storage
+    textContent = note[1]; //note text from storage
+    noteId = note[2]; //note id from storage
+    saveButton = "";
+  } else if (note === null) {
+    date = new Date().toLocaleString();
+    noteId = uniqIdGenerator();
+    textContent = "";
+    saveButton = `<a onclick="SaveNote(this)"><i class="fas fa-save" style="color:green;"></i></a>`;
+  }
+
   noteCardDiv.className = "note-card";
   noteCardDiv.innerHTML = `
   <div class="note-card-header">
-  <span id="note-date">${date}</span>
+  <span class="note-date">${date}</span>
   <div class="buttons" data-noteId="${noteId}">
       <a onclick="EditNote(this)"><i class="fas fa-edit" style="color:yellow;"></i></a>
       <a onclick="DeleteNote(this)"><i class="fas fa-trash-alt" style="color:red;"></i></a>
+      ${saveButton}
   </div>
 </div>
 <div class="note-card-content">
   <textarea id="${noteId}" rows="1" class="note-textarea" disabled>
+${textContent}
   </textarea>
 </div>
 `;
@@ -99,12 +169,14 @@ function AddNote() {
 
 function DeleteNote(e) {
   var respond = confirm("Are you sure ?");
-  if(respond == true){
+  if (respond == true) {
     var cardDiv = $(e).parent().parent().parent();
     $(cardDiv).remove();
+    deleteNotesFromStorage(e);
   }
 }
 
+//-----------------------------------> Notes Functions End
 $(document).ready(function () {
   ChangeRow();
 });
