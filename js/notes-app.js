@@ -1,3 +1,5 @@
+const noteContent = document.querySelector("#content-section");
+
 var calculateContentHeight = function (ta, scanAmount) {
   var origHeight = ta.style.height,
     height = ta.offsetHeight,
@@ -66,8 +68,41 @@ function EditNote(e) {
   $(noteTextarea).focusout(function () {
     $(noteTextarea).attr("disabled", true);
     $(e).show();
-    //save 
+    //save
   });
+}
+
+function uniqIdGenerator() {
+  return "note-" + Math.round(new Date().getTime() + Math.random() * 100);
+}
+
+function AddNote() {
+  var noteCardDiv = document.createElement("div");
+  var date = new Date().toLocaleString();
+  var noteId = uniqIdGenerator();
+  noteCardDiv.className = "note-card";
+  noteCardDiv.innerHTML = `
+  <div class="note-card-header">
+  <span id="note-date">${date}</span>
+  <div class="buttons" data-noteId="${noteId}">
+      <a onclick="EditNote(this)"><i class="fas fa-edit" style="color:yellow;"></i></a>
+      <a onclick="DeleteNote(this)"><i class="fas fa-trash-alt" style="color:red;"></i></a>
+  </div>
+</div>
+<div class="note-card-content">
+  <textarea id="${noteId}" rows="1" class="note-textarea" disabled>
+  </textarea>
+</div>
+`;
+  noteContent.appendChild(noteCardDiv);
+}
+
+function DeleteNote(e) {
+  var respond = confirm("Are you sure ?");
+  if(respond == true){
+    var cardDiv = $(e).parent().parent().parent();
+    $(cardDiv).remove();
+  }
 }
 
 $(document).ready(function () {
