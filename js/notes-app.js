@@ -1,4 +1,4 @@
-const noteContent = document.querySelector("#content-section");
+const noteContent = document.querySelector(".card-container");
 
 var calculateContentHeight = function (ta, scanAmount) {
   var origHeight = ta.style.height,
@@ -144,7 +144,7 @@ function uniqIdGenerator() {
 }
 
 function AddNote(note) {
-  var noteCardDiv = document.createElement("div");
+  var noteCardDiv = document.createElement("div");  
   var date,textContent,noteId,saveButton;
   
   if (note !== null) {
@@ -175,7 +175,7 @@ ${textContent}
   </textarea>
 </div>
 `;
-  noteContent.appendChild(noteCardDiv);
+  noteContent.insertAdjacentElement('afterbegin',noteCardDiv);
 }
 
 function DeleteNote(e) {
